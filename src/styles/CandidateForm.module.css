@@ -1,0 +1,85 @@
+.container {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.title {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+}
+
+.input,
+.fileInput {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+.fileInput {
+  cursor: pointer;
+}
+
+.submitButton {
+  padding: 12px;
+  background: #2099b3;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out, transform 0.2s;
+}
+
+.submitButton:hover {
+  background: #176d81;
+  transform: scale(1.05);
+}
+
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.textarea {
+    width: 90%;
+    height: 300px;
+      padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  resize: none;
+}
+.loader {
+  width: 24px;
+  height: 24px;
+}

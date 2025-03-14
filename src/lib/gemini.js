@@ -19,7 +19,17 @@ export async function generateCandidateFeedback(candidateProfile, jobDescription
     const result = await textModel.generateContent({
         contents: [{
             role: "user",
-            parts: [{ text: `Compare the following candidate profile with the job description and provide improvement suggestions:\n\nCandidate Profile:\n${candidateProfile}\n\nJob Description:\n${jobDescription}` }],
+            parts: [{
+                text: `Evaluate the following candidate profile against the given job description and provide structured feedback for HR:\n\n
+   **Candidate Profile:**\n${candidateProfile}\n\n
+   **Job Description:**\n${jobDescription}\n\n
+   **Evaluation Criteria:**\n
+   1. **Skill Match (%):** How well does the candidate's skills align with the job requirements?\n
+   2. **Experience Relevance:** Does their past experience match the role?\n
+   3. **Missing Skills or Gaps:** Identify areas where the candidate falls short.\n
+   4. **Strengths:** Highlight key strengths that make the candidate a good fit.\n
+   5. **Hiring Recommendation:** Should the candidate be shortlisted? (Yes/No with reasons)`
+            }],
         }],
     });
     return result.response.text();
@@ -32,10 +42,10 @@ function sleep(ms) {
 
 export async function generateEmbeddings(text) {
     try {
-        await sleep(1000);
+        await sleep(1500);
         const result = await embeddingModel.embedContent({
             content: {
-                parts: [{ text: text }]  
+                parts: [{ text: text }]
             }
         });
 

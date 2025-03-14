@@ -9,35 +9,43 @@ import { storeResumeInPinecone } from "@/lib/pinecone";
 
 export async function POST(req) {
   try {
+    console.log("Connecting to database...");
     await connectDB();
-    const formData = await req.formData();
 
+    const formData = await req.formData();
     const name = formData.get("name");
     const email = formData.get("email");
     const linkedIn = formData.get("linkedIn");
     const skills = formData.get("skills");
     const resumeFile = formData.get("resume");
+    const jobDescription = formData.get("jobDescription"); 
 
-    if (!name || !email || !linkedIn || !skills || !resumeFile) {
+    if (!name || !email || !linkedIn || !skills || !resumeFile || !jobDescription) {
+      console.error("Validation Error: Missing fields");
       return NextResponse.json({ success: false, error: "All fields are required" }, { status: 400 });
     }
 
-    // Ensure the upload directory exists
+    // Save resume file
     const uploadDir = path.join(process.cwd(), "public", "uploads");
     await mkdir(uploadDir, { recursive: true });
 
-    // Save resume file
     const resumePath = path.join(uploadDir, resumeFile.name);
     await writeFile(resumePath, Buffer.from(await resumeFile.arrayBuffer()));
+    console.log("Resume saved at:", resumePath);
 
-    // Extract text from PDF
+    // Extract text from resume
     const extractedText = await extractTextFromPDF(resumePath);
+    console.log("Extracted text from PDF:", extractedText.substring(0, 200), "...");
 
-    // Generate resume summary and AI feedback
+    // Generate summary
     const summary = await summarizeResume(extractedText);
-    const feedback = await generateCandidateFeedback(summary, "Job description will be provided later");
+    console.log("Generated summary:", summary);
 
-    // Save candidate data to MongoDB
+    // Generate feedback based on job description
+    const feedback = await generateCandidateFeedback(summary, jobDescription);
+    console.log("Generated feedback:", feedback);
+
+    // Save candidate to MongoDB
     const newCandidate = new Candidate({
       name,
       email,
@@ -50,11 +58,12 @@ export async function POST(req) {
     });
 
     await newCandidate.save();
-
-    // Store resume vector in Pinecone
+    console.log("Candidate saved to MongoDB with ID:", newCandidate);
+2
     await storeResumeInPinecone(newCandidate._id.toString(), extractedText);
+    console.log("Resume indexed in Pinecone");
 
-    return NextResponse.json({ success: true, message: "Candidate saved, summarized, and indexed successfully!" });
+    return NextResponse.json({ feedback , success: true, message: "Candidate saved, summarized, and indexed successfully!" });
   } catch (error) {
     console.error("Error processing request:", error);
     return NextResponse.json({ success: false, error: "Internal Server Error" }, { status: 500 });

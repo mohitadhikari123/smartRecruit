@@ -6,7 +6,9 @@ const CandidateSchema = new mongoose.Schema({
   linkedIn: { type: String, required: true },
   skills: { type: [String], required: true },
   resumePath: { type: String, required: true },
-  extractedText: { type: String }, // Store extracted resume text
+  extractedText: { type: String }, 
+  summary: { type: String, default: "" },  
+  feedback: { type: String, default: "" },
 }, { timestamps: true });
 
 const Candidate = mongoose.models.Candidate || mongoose.model("Candidate", CandidateSchema);
