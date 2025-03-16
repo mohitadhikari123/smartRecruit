@@ -8,9 +8,9 @@ const textModel = genAI.getGenerativeModel({ model: "gemini-1.5-pro" });
 // Model for embeddings
 const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
 
-export async function summarizeResume(extractedText) {
+export async function summarizeResume(resumeText) {
     const result = await textModel.generateContent({
-        contents: [{ role: "user", parts: [{ text: `Summarize this resume: ${extractedText}` }] }],
+        contents: [{ role: "user", parts: [{ text: `Summarize this resume: ${resumeText}` }] }],
     });
     return result.response.text();
 }

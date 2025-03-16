@@ -6,6 +6,7 @@
   border-radius: 10px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
   text-align: center;
+  margin-top: 80px;
 }
 
 .title {
@@ -22,7 +23,7 @@
 
 .input,
 .fileInput {
-  width: 100%;
+  width: 95%;
   padding: 10px;
   margin-bottom: 15px;
   border: 1px solid #ccc;
@@ -82,4 +83,15 @@
 .loader {
   width: 24px;
   height: 24px;
+}
+
+.rankingButton {
+    background-color: black;
+    color: white;
+    margin-top: 10px;
+    width: 100%;
+}
+
+.rankingButton:hover {
+    background-color: #333;
 }

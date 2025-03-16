@@ -50,8 +50,9 @@ const CandidateForm = () => {
       const result = await response.json();
       if (result.success) {
         setShowModal(false);
-        localStorage.setItem("candidateFeedback", JSON.stringify(result.feedback)); // Store feedback as JSON string
-        router.push('/feedback'); // Redirect to feedback page
+        localStorage.setItem("candidateFeedback", JSON.stringify(result.feedback));
+        localStorage.setItem("candidateScore", result.score);
+        router.push('/feedback');
       } else {
         alert("Submission failed: " + result.error);
       }
@@ -62,12 +63,15 @@ const CandidateForm = () => {
     }
   };
 
-  // Close modal when clicking outside
   const handleOutsideClick = (e) => {
     if (e.target.classList.contains(styles.modalOverlay)) {
       setShowModal(false);
     }
   };
+
+  const navigateToRanking = () => {
+    router.push('/ranking');
+  }
 
   return (
     <div className={styles.container}>
@@ -92,6 +96,7 @@ const CandidateForm = () => {
           </div>
         </div>
       )}
+      <button onClick={navigateToRanking} className={`${styles.submitButton} ${styles.rankingButton}`}>Ranking Page</button>
     </div>
   );
 };
