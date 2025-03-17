@@ -1,6 +1,4 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import path from "path";
 import { connectDB } from "@/lib/db";
 import Candidate from "@/models/Candidate";
 import { extractTextFromPDF } from "@/utils/resumeParser";
@@ -25,27 +23,12 @@ export async function POST(req) {
       return NextResponse.json({ success: false, error: "All fields are required" }, { status: 400 });
     }
 
-    // Save resume file
-    const uploadDir = path.join(process.cwd(), "public", "uploads");
-    try {
-      await mkdir(uploadDir, { recursive: true });
-    } catch (mkdirError) {
-      console.error("Error creating upload directory:", mkdirError);
-      return NextResponse.json({ success: false, error: "Failed to create upload directory" }, { status: 500 });
-    }
-
-    const resumePath = path.join(uploadDir, resumeFile.name);
-    try {
-      await writeFile(resumePath, Buffer.from(await resumeFile.arrayBuffer()));
-    } catch (writeFileError) {
-      console.error("Error writing resume file:", writeFileError);
-      return NextResponse.json({ success: false, error: "Failed to save resume file" }, { status: 500 });
-    }
-
-    // Extract text from resume
+    // Extract text from resume from the file buffer
     let resumeText;
     try {
-      resumeText = await extractTextFromPDF(resumePath);
+      const resumeBuffer = await resumeFile.arrayBuffer();
+      resumeText = await extractTextFromPDF(resumeBuffer);
+
       if (!resumeText) {
         return NextResponse.json({ success: false, error: "Failed to extract text from resume" }, { status: 400 });
       }
@@ -98,7 +81,6 @@ export async function POST(req) {
       email,
       linkedIn,
       skills: skills.split(",").map((skill) => skill.trim()),
-      resumePath: `/uploads/${resumeFile.name}`,
       resumeText,
       jobDescription,
       similarityScore,
