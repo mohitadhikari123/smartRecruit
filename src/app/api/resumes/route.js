@@ -27,7 +27,14 @@ export async function POST(req) {
     let resumeText;
     try {
       const resumeBuffer = await resumeFile.arrayBuffer();
-      resumeText = await extractTextFromPDF(resumeBuffer);
+      console.log('resumeBuffer: ', resumeBuffer);
+      const buffer = Buffer.from(resumeBuffer);
+      console.log('buffer: ', buffer);
+      const uint8Array = new Uint8Array(buffer); // Convert Buffer to Uint8Array
+      console.log('uint8Array: ', uint8Array);
+      resumeText = await extractTextFromPDF(uint8Array); // Pass Uint8Array to extractTextFromPDF
+      console.log('resumeText: ', resumeText);
+
 
       if (!resumeText) {
         return NextResponse.json({ success: false, error: "Failed to extract text from resume" }, { status: 400 });
@@ -36,6 +43,7 @@ export async function POST(req) {
       console.error("Error extracting text from resume:", extractError);
       return NextResponse.json({ success: false, error: "Failed to extract text from resume" }, { status: 500 });
     }
+
 
     // Generate embeddings
     let jobDescriptionEmbedding, candidateEmbedding;
