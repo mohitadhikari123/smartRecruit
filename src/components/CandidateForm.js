@@ -11,10 +11,11 @@ const CandidateForm = () => {
     email: "",
     linkedIn: "",
     skills: "",
-    jobDescription: "",
     resume: null,
   });
-  const [showModal, setShowModal] = useState(false);
+  const [jobDescription, setJobDescription] = useState("");
+  const [showJobDescription, setShowJobDescription] = useState(false);
+  const [candidateId, setCandidateId] = useState(null);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,12 +26,7 @@ const CandidateForm = () => {
     setFormData({ ...formData, resume: e.target.files[0] });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setShowModal(true);
-  };
-
-  const handleFinalSubmit = async (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setIsLoading(true);
     const data = new FormData();
@@ -38,34 +34,62 @@ const CandidateForm = () => {
     data.append("email", formData.email);
     data.append("linkedIn", formData.linkedIn);
     data.append("skills", formData.skills);
-    data.append("jobDescription", formData.jobDescription);
     data.append("resume", formData.resume);
 
     try {
-      const response = await fetch("/api/resumes", {
+      const response = await fetch("/api/candidates", {
         method: "POST",
         body: data,
       });
-
+      
       const result = await response.json();
       if (result.success) {
-        setShowModal(false);
-        localStorage.setItem("candidateFeedback", JSON.stringify(result.feedback));
-        localStorage.setItem("candidateScore", result.score);
-        router.push('/feedback');
+        setCandidateId(result.candidateId);
+        setShowJobDescription(true);
       } else {
-        alert("Submission failed: " + result.error);
+        alert("Candidate profile creation failed: " + result.error);
       }
     } catch (error) {
-      console.error("Error submitting form:", error);
+      console.error("Error submitting candidate profile:", error);
+      alert("An unexpected error occurred.");
     } finally {
       setIsLoading(false);
     }
   };
 
-  const handleOutsideClick = (e) => {
-    if (e.target.classList.contains(styles.modalOverlay)) {
-      setShowModal(false);
+  const handleJobDescriptionChange = (e) => {
+    setJobDescription(e.target.value);
+  };
+
+  const handleFinalSubmit = async (e) => {
+    e.preventDefault();
+    setIsLoading(true);
+
+    try {
+      const response = await fetch("/api/feedback", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          candidateId: candidateId,
+          jobDescription: jobDescription,
+        }),
+      });
+
+      const result = await response.json();
+      if (result.success) {
+        localStorage.setItem("candidateFeedback", JSON.stringify(result.feedback));
+        localStorage.setItem("candidateScore", result.score);
+        router.push('/feedback');
+      } else {
+        alert("Job description processing failed: " + result.error);
+      }
+    } catch (error) {
+      console.error("Error submitting job description:", error);
+      alert("An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -82,14 +106,16 @@ const CandidateForm = () => {
         <input type="url" name="linkedIn" placeholder="LinkedIn URL" onChange={handleChange} required className={styles.input} />
         <input type="text" name="skills" placeholder="Skills (comma-separated)" onChange={handleChange} required className={styles.input} />
         <input type="file" accept=".pdf" onChange={handleFileChange} required className={styles.fileInput} />
-        <button type="submit" className={styles.submitButton}>Submit</button>
+        <button type="submit" className={styles.submitButton} disabled={isLoading}>
+          {isLoading ? "Submitting..." : "Submit"}
+        </button>
       </form>
 
-      {showModal && (
-        <div className={styles.modalOverlay} onClick={handleOutsideClick}>
+      {showJobDescription && (
+        <div className={styles.modalOverlay}>
           <div className={styles.modalContent}>
             <h3>Enter Job Description</h3>
-            <textarea name="jobDescription" rows="5" placeholder="Job Description" onChange={handleChange} className={styles.textarea}></textarea>
+            <textarea name="jobDescription" rows="5" placeholder="Job Description" onChange={handleJobDescriptionChange} className={styles.textarea}></textarea>
             <button onClick={handleFinalSubmit} className={styles.submitButton} disabled={isLoading}>
               {isLoading ? "Submitting..." : "Submit"}
             </button>

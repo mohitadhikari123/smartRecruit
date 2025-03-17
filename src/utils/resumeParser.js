@@ -7,7 +7,7 @@ export async function extractTextFromPDF(pdfData) {
         if (pdfData instanceof Uint8Array || pdfData instanceof Buffer) {
             dataBuffer = pdfData;
         } else if (typeof pdfData === "string") {
-            const fs = await import("fs/promises"); 
+            const fs = await import("fs/promises");
             dataBuffer = await fs.readFile(pdfData);
         } else {
             throw new Error("Invalid input: pdfData must be a file path, Uint8Array, or Buffer.");
