@@ -27,24 +27,70 @@ export async function POST(req) {
 
     // Save resume file
     const uploadDir = path.join(process.cwd(), "public", "uploads");
-    await mkdir(uploadDir, { recursive: true });
+    try {
+      await mkdir(uploadDir, { recursive: true });
+    } catch (mkdirError) {
+      console.error("Error creating upload directory:", mkdirError);
+      return NextResponse.json({ success: false, error: "Failed to create upload directory" }, { status: 500 });
+    }
 
     const resumePath = path.join(uploadDir, resumeFile.name);
-    await writeFile(resumePath, Buffer.from(await resumeFile.arrayBuffer()));
+    try {
+      await writeFile(resumePath, Buffer.from(await resumeFile.arrayBuffer()));
+    } catch (writeFileError) {
+      console.error("Error writing resume file:", writeFileError);
+      return NextResponse.json({ success: false, error: "Failed to save resume file" }, { status: 500 });
+    }
 
     // Extract text from resume
-    const resumeText = await extractTextFromPDF(resumePath);
+    let resumeText;
+    try {
+      resumeText = await extractTextFromPDF(resumePath);
+      if (!resumeText) {
+        return NextResponse.json({ success: false, error: "Failed to extract text from resume" }, { status: 400 });
+      }
+    } catch (extractError) {
+      console.error("Error extracting text from resume:", extractError);
+      return NextResponse.json({ success: false, error: "Failed to extract text from resume" }, { status: 500 });
+    }
 
-    const jobDescriptionEmbedding = await generateEmbeddings(jobDescription);
-    const candidateEmbedding = await generateEmbeddings(resumeText);
+    // Generate embeddings
+    let jobDescriptionEmbedding, candidateEmbedding;
+    try {
+      jobDescriptionEmbedding = await generateEmbeddings(jobDescription);
+      candidateEmbedding = await generateEmbeddings(resumeText);
+    } catch (embedError) {
+      console.error("Error generating embeddings:", embedError);
+      return NextResponse.json({ success: false, error: "Failed to generate embeddings" }, { status: 500 });
+    }
+
     const similarityScore = cosineSimilarity(jobDescriptionEmbedding, candidateEmbedding);
 
-    const summary = await summarizeResume(resumeText);
+    // Summarize resume
+    let summary;
+    try {
+      summary = await summarizeResume(resumeText);
+      if (!summary) {
+        return NextResponse.json({ success: false, error: "Failed to summarize resume" }, { status: 500 });
+      }
+    } catch (summaryError) {
+      console.error("Error summarizing resume:", summaryError);
+      return NextResponse.json({ success: false, error: "Failed to summarize resume" }, { status: 500 });
+    }
 
-    let feedback = await generateCandidateFeedback(summary, jobDescription);
-
-    if (typeof feedback === "string") {
-      feedback = feedback.replace(/[*#]/g, "");
+    // Generate candidate feedback
+    let feedback;
+    try {
+      feedback = await generateCandidateFeedback(summary, jobDescription);
+      if (typeof feedback === "string") {
+        feedback = feedback.replace(/[*#]/g, "");
+      }
+      if (!feedback) {
+        return NextResponse.json({ success: false, error: "Failed to generate candidate feedback" }, { status: 500 });
+      }
+    } catch (feedbackError) {
+      console.error("Error generating candidate feedback:", feedbackError);
+      return NextResponse.json({ success: false, error: "Failed to generate candidate feedback" }, { status: 500 });
     }
 
     const newCandidate = new Candidate({
