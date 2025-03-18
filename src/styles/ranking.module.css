@@ -1,11 +1,11 @@
 .container {
-    max-width: 800px; /* Increased max-width */
-    margin: 80px auto;
+    max-width: 800px; 
     padding: 20px;
     background: #fff;
     border-radius: 10px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     text-align: center;
+    margin: auto;
 }
 
 .title {
@@ -13,6 +13,7 @@
     font-weight: bold;
     margin-bottom: 20px;
     color: #333;
+    width: 73%;
 }
 
 .textarea {
@@ -22,7 +23,7 @@
     border: 1px solid #ccc;
     border-radius: 5px;
     font-size: 16px;
-    resize: vertical; /* Allow vertical resizing */
+    resize: vertical;
     margin-bottom: 15px;
 }
 
@@ -66,4 +67,28 @@
 
 .table tbody tr:hover {
     background-color: #e0f7fa;
+}
+.header {
+    display: flex;
+    justify-content: right;
+    padding: 10px;
+}
+
+.homeLink {
+    padding: 12px;
+    text-decoration: none;
+    background: #000000;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out, transform 0.2s;
+}
+.headerContainer{
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    width: 97%;
 }

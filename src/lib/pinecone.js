@@ -9,13 +9,3 @@ export async function storeResumeInPinecone(candidateId, resumeText) {
     await index.upsert([{ id: candidateId, values: embedding }]);
     return true;
 }
-
-export async function searchCandidates(jobDescription) {
-    const jobEmbedding = await generateEmbeddings(jobDescription);
-    const results = await index.query({
-        vector: jobEmbedding,
-        topK: 5,
-        includeMetadata: true,
-    });
-    return results.matches;
-}

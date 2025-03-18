@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 import styles from '../../styles/FeedbackPage.module.css';
+import Link from 'next/link';
 
 const FeedbackPage = () => {
     const [feedback, setFeedback] = useState(null);
@@ -22,7 +23,7 @@ const FeedbackPage = () => {
         }
 
         if (storedScore) {
-            setScore(parseFloat(storedScore) * 100); // Parse and convert to percentage
+            setScore(parseFloat(storedScore));
             localStorage.removeItem("candidateScore");
         }
 
@@ -34,7 +35,14 @@ const FeedbackPage = () => {
 
     return (
         <div className={styles.feedbackContainer}>
-            <h2 className={styles.feedbackTitle}>Candidate Feedback</h2>
+            <div className={styles.headerContainer}>
+                <h2 className={styles.feedbackTitle}>Candidate Feedback</h2>
+                <div className={styles.header}>
+                    <Link href="/" className={styles.homeLink}>
+                        Home
+                    </Link>
+                </div>
+            </div>
             {score !== null && <p><strong>Similarity Score:</strong> {score.toFixed(1)}%</p>}
             <pre className={styles.feedbackPre}>{feedback}</pre>
         </div>

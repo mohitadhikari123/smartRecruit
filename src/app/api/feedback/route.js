@@ -1,17 +1,15 @@
 import { NextResponse } from "next/server";
 import { connectDB } from "@/lib/db";
 import Candidate from "@/models/Candidate";
-import { summarizeResume, generateCandidateFeedback, generateEmbeddings } from "@/lib/gemini";
-import { storeResumeInPinecone } from "@/lib/pinecone";
-import { cosineSimilarity } from "@/utils/cosineSimilarity";
+import { summarizeResume, generateCandidateFeedback, getGeminiSimilarityScore } from "@/lib/gemini";
 
 export async function POST(req) {
     try {
         await connectDB();
+
         const { candidateId, jobDescription } = await req.json();
 
         if (!candidateId || !jobDescription) {
-            console.error("Validation Error: Missing fields");
             return NextResponse.json({ success: false, error: "Candidate ID and job description are required" }, { status: 400 });
         }
 
@@ -23,16 +21,8 @@ export async function POST(req) {
 
         const resumeText = candidate.resumeText;
 
-        const [jobDescriptionEmbedding, candidateEmbedding] = await Promise.all([
-            generateEmbeddings(jobDescription),
-            generateEmbeddings(resumeText),
-        ]);
-
-        if (!jobDescriptionEmbedding) {
-            return NextResponse.json({ success: false, error: "Failed to generate job description embedding" }, { status: 400 });
-        }
-
-        const similarityScore = cosineSimilarity(jobDescriptionEmbedding, candidateEmbedding);
+        const similarityScores = await getGeminiSimilarityScore([{ resumeText }], jobDescription);
+        const similarityScore = similarityScores[0] || 0;
 
         let summary, feedback;
 
@@ -45,10 +35,6 @@ export async function POST(req) {
             return NextResponse.json({ success: false, error: "Failed to summarize resume" }, { status: 500 });
         }
 
-        if (typeof feedback === "string") {
-            feedback = feedback.replace(/[*#]/g, "");
-        }
-
         if (!feedback) {
             return NextResponse.json({ success: false, error: "Failed to generate candidate feedback" }, { status: 500 });
         }
@@ -58,10 +44,7 @@ export async function POST(req) {
         candidate.summary = summary;
         candidate.feedback = feedback;
 
-        await Promise.all([
-            candidate.save(),
-            storeResumeInPinecone(candidate._id.toString(), resumeText),
-        ]);
+        await candidate.save();
 
         return NextResponse.json({
             feedback,

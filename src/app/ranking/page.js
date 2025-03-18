@@ -1,6 +1,7 @@
 "use client"
 import { useState } from 'react';
 import styles from '../../styles/ranking.module.css';
+import Link from 'next/link'; // Import Link
 
 async function fetchRankedCandidates(jobDescription) {
     try {
@@ -40,9 +41,17 @@ export default function RankingPage() {
 
     return (
         <div className={styles.container}>
+
             {(!rankedCandidates.length > 0 || !searchPerformed) && (
                 <div>
-                    <h1 className={styles.title}>Candidate Ranking</h1>
+                    <div className={styles.headerContainer}>
+                        <h1 className={styles.title}>Candidate Ranking</h1>
+                        <div className={styles.header}>
+                            <Link href="/" className={styles.homeLink}>
+                                Home
+                            </Link>
+                        </div>
+                    </div>
                     <textarea
                         value={jobDescription}
                         onChange={(e) => setJobDescription(e.target.value)}
