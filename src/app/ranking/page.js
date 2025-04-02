@@ -43,7 +43,7 @@ export default function RankingPage() {
         <div className={styles.container}>
 
             {(!rankedCandidates.length > 0 || !searchPerformed) && (
-                <div>
+                <div className={styles.PageContainer}>
                     <div className={styles.headerContainer}>
                         <h1 className={styles.title}>Candidate Ranking</h1>
                         <div className={styles.header}>
