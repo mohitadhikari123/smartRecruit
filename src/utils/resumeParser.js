@@ -14,8 +14,8 @@ export async function extractTextFromPDF(pdfData) {
         }
 
         const pdfContent = await pdfParse(dataBuffer);
-        return pdfContent.text;
-    } catch (error) {
+        return pdfContent.text.replace(/\n/g, " ").replace(/\s+/g, " ");
+        } catch (error) {
         console.error("Error extracting text from PDF:", error);
         return null;
     }

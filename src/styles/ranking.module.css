@@ -6,6 +6,10 @@
     text-align: left;
     margin: auto;
 }
+.PageContainer{
+    display: flex;
+    flex-direction: column;
+}
 
 .title {
     font-size: 24px;
@@ -16,7 +20,7 @@
 }
 
 .textarea {
-    width: 90%;
+    width: 95%;
     height: 200px;
     padding: 10px;
     border: 1px solid #ccc;
@@ -36,6 +40,7 @@
     font-weight: bold;
     cursor: pointer;
     transition: all 0.3s ease-in-out, transform 0.2s;
+    margin : auto;
 }
 
 .submitButton:hover {
