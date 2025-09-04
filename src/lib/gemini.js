@@ -3,7 +3,7 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
 
 // Model for text generation
-const textModel = genAI.getGenerativeModel({ model: "gemini-2.0-flash-lite" });
+const textModel = genAI.getGenerativeModel({ model: "gemini-2.0-flash" });
 
 // Model for embeddings
 const embeddingModel = genAI.getGenerativeModel({ model: "text-embedding-004" });
