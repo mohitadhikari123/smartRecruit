@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useRouter } from 'next/navigation';
 import styles from "../styles/CandidateForm.module.css";
 import { getSampleJobTitles, getSampleJobDescription } from "../utils/sampleJobDescriptions";
+import { getSampleResumeTitles, getSampleResumeText } from "../utils/sampleResumeTexts";
 import LoadingOverlay from "./LoadingOverlay";
 
 const CandidateForm = ({ onClose, onCandidateSubmitted }) => {
@@ -16,8 +17,10 @@ const CandidateForm = ({ onClose, onCandidateSubmitted }) => {
   });
   const [candidateId, setCandidateId] = useState(null);
   const [inputMethod, setInputMethod] = useState("upload"); // "upload" or "manual"
+  const [showResumeSamples, setShowResumeSamples] = useState(false);
   
   const sampleTitles = getSampleJobTitles();
+  const sampleResumeTitles = getSampleResumeTitles();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,6 +39,16 @@ const CandidateForm = ({ onClose, onCandidateSubmitted }) => {
     } else {
       setFormData({ ...formData, resume: null });
     }
+  };
+
+  const toggleResumeSamples = () => {
+    setShowResumeSamples(!showResumeSamples);
+  };
+
+  const handleResumeSampleSelect = (title) => {
+    const sampleResume = getSampleResumeText(title);
+    setFormData({ ...formData, resumeText: sampleResume });
+    setShowResumeSamples(false);
   };
 
   const handleSubmit = async (e) => {
@@ -114,15 +127,48 @@ const CandidateForm = ({ onClose, onCandidateSubmitted }) => {
             className={styles.fileInput} 
           />
         ) : (
-          <textarea
-            name="resumeText"
-            placeholder="Paste the candidate's resume text here..."
-            value={formData.resumeText}
-            onChange={handleChange}
-            required
-            rows={6}
-            className={styles.resumeTextarea}
-          />
+          <div className={styles.resumeTextContainer}>
+            <div className={styles.resumeTextHeader}>
+              <span className={styles.resumeTextLabel}>PASTE RESUME TEXT BELOW</span>
+              <span className={styles.orDivider}>OR</span>
+              <button 
+                type="button"
+                onClick={toggleResumeSamples}
+                className={styles.sampleToggleButton}
+              >
+                USE A SAMPLE RESUME
+              </button>
+            </div>
+            <div className={styles.resumeTextArea}>
+              <textarea
+                name="resumeText"
+                placeholder="Paste the candidate's resume text here..."
+                value={formData.resumeText}
+                onChange={handleChange}
+                required
+                rows={6}
+                className={styles.resumeTextarea}
+              />
+              
+              {showResumeSamples && (
+                <div className={styles.resumeSamplesContainer}>
+                  <div className={styles.samplesHeader}>Select a sample resume:</div>
+                  <div className={styles.samplesList}>
+                    {sampleResumeTitles.map((title) => (
+                      <button
+                        key={title}
+                        onClick={() => handleResumeSampleSelect(title)}
+                        className={styles.sampleButton}
+                        type="button"
+                      >
+                        {title}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
         )}
         </div>
 

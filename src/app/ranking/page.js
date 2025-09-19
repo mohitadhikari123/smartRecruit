@@ -54,6 +54,7 @@ export default function RankingPage() {
         setShowSamples(!showSamples);
     };
 
+
     // Helper function to normalize similarity score to percentage (0-100)
     const normalizeScore = (score) => {
         if (score > 1) {
