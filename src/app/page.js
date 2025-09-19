@@ -1,9 +1,9 @@
-import CandidateForm from "@/components/CandidateForm";
+import Homepage from "@/components/Homepage";
 
 export default function Home() {
   return (
     <main>
-      <CandidateForm />
+      <Homepage />
     </main>
   );
 }

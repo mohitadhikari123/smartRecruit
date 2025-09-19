@@ -1,0 +1,222 @@
+.modalFormContainer {
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 1rem;
+  text-align: center;
+  max-width: 92%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Job Input Container Styles */
+.jobInputContainer {
+  margin-bottom: 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #f8fafc;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.jobInputHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.inputLabel {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.75rem;
+}
+
+.orDivider {
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.sampleToggleButton {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.sampleToggleButton:hover {
+  color: #1d4ed8;
+}
+
+.inputArea {
+  position: relative;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+}
+
+.textarea {
+  width: 92%;
+  height: 200px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  resize: none;
+  background: white;
+  transition: all 0.2s ease;
+  font-family: inherit;
+  flex: 1;
+}
+
+.textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.samplesContainer {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 300px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
+}
+
+.samplesContainer::-webkit-scrollbar {
+  width: 6px;
+}
+
+.samplesContainer::-webkit-scrollbar-track {
+  background: #f1f5f9;
+  border-radius: 3px;
+}
+
+.samplesContainer::-webkit-scrollbar-thumb {
+  background: #cbd5e1;
+  border-radius: 3px;
+}
+
+.samplesContainer::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
+.samplesHeader {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #1e293b;
+  border-radius: 0.75rem 0.75rem 0 0;
+}
+
+.samplesList {
+  padding: 0.5rem;
+  max-height: 140px;
+  overflow-y: auto;
+}
+
+.sampleButton {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.sampleButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.1), transparent);
+  transition: left 0.3s ease;
+}
+
+.sampleButton:hover::before {
+  left: 100%;
+}
+
+.sampleButton:hover {
+  background: linear-gradient(135deg, #f0f7ff, #e0f2fe);
+  border-color: #3b82f6;
+  color: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+}
+
+.sampleButton:last-child {
+  margin-bottom: 0;
+}
+
+.submitButton {
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  width: 100%;
+}
+
+.submitButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}

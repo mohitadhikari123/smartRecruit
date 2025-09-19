@@ -1,3 +1,17 @@
+.modalFormContainer {
+  padding: 1.25rem;
+  background: #fff;
+  border-radius: 1rem;
+  text-align: center;
+  max-width: 92%;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
 .container {
   max-width: 400px;
   margin: auto;
@@ -10,46 +24,72 @@
 }
 
 .title {
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .form {
   display: flex;
   flex-direction: column;
+  gap: 0.75rem;
+  flex: 1;
+  overflow: hidden;
 }
 
 .input,
 .fileInput {
-  width: 95%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  width: 92%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  transition: all 0.2s ease;
+  background: #f8fafc;
+}
+
+.input:focus,
+.fileInput:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
 .fileInput {
   cursor: pointer;
+  margin-top: 0.75rem;
+
 }
 
 .submitButton {
-  padding: 12px;
-  background: #2099b3;
+  padding: 0.875rem 1.5rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
   color: white;
   border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
   cursor: pointer;
-  transition: all 0.3s ease-in-out, transform 0.2s;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+  width: 100%;
 }
 
 .submitButton:hover {
-  background: #176d81;
-  transform: scale(1.05);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+.submitButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
 }
 
 .modalOverlay {
@@ -72,13 +112,23 @@
 }
 
 .textarea {
-    width: 90%;
-    height: 300px;
-      padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
-  resize: none;
+    width: 92%;
+    height: 80px;
+    padding: 0.75rem 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    resize: none;
+    background: white;
+    transition: all 0.2s ease;
+    font-family: inherit;
+    flex: 1;
+}
+
+.textarea:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 .loader {
   width: 24px;
@@ -94,4 +144,254 @@
 
 .rankingButton:hover {
     background-color: #333;
+}
+
+/* Resume Input Toggle Styles */
+.toggleContainer {
+  padding: 0.75rem;
+  border-radius: 0.5rem;
+  border: 2px solid #e2e8f0;
+  background: #f8fafc;
+}
+
+.toggleLabel {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: #1e293b;
+  font-size: 0.875rem;
+}
+
+/* Animated Toggle Button Styles */
+.toggleButtonGroup {
+  display: flex;
+  gap: 0;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  position: relative;
+}
+
+.toggleButton {
+  flex: 1;
+  padding: 6px 9px;
+  border: none;
+  background: #f8f9fa;
+  color: #6c757d;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  z-index: 1;
+}
+
+.toggleIcon {
+  font-size: 16px;
+  transition: transform 0.3s ease;
+}
+
+.toggleButtonActive {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  transform: scale(1.02);
+  box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+}
+
+.toggleButtonActive .toggleIcon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.toggleButtonInactive {
+  background: #f8f9fa;
+  color: #6c757d;
+}
+
+.toggleButtonInactive:hover {
+  background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+  color: #495057;
+}
+
+/* Animation for color transition */
+.toggleButton::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(135deg, #667eea 0%, #2099b3 100%);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+.toggleButtonActive::before {
+  opacity: 1;
+}
+
+/* Ripple effect on click */
+.toggleButton:active {
+  transform: scale(0.98);
+}
+
+/* Remove old radio styles */
+.radioGroup,
+.radioLabel,
+.radioInput {
+  display: none;
+}
+
+.resumeTextarea {
+  width: 92%;
+  padding: 0.75rem 1rem;
+  margin-top: 0.75rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  font-family: inherit;
+  resize: none;
+  height: 100px;
+  line-height: 1.5;
+  background: #f8fafc;
+  transition: all 0.2s ease;
+}
+
+.resumeTextarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  background: white;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* Job Input Container Styles for Modal */
+.jobInputContainer {
+    margin-bottom: 0.75rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    background: #f8fafc;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.jobInputHeader {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #f1f5f9;
+    padding: 0.75rem;
+    border-bottom: 1px solid #e2e8f0;
+    gap: 0.75rem;
+    flex-wrap: wrap;
+}
+
+.inputLabel {
+    font-weight: 600;
+    color: #1e293b;
+    font-size: 0.75rem;
+}
+
+.orDivider {
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 0.75rem;
+}
+
+.sampleToggleButton {
+    background: none;
+    border: none;
+    color: #3b82f6;
+    font-weight: 600;
+    font-size: 0.75rem;
+    cursor: pointer;
+    text-decoration: underline;
+    padding: 0;
+    transition: color 0.2s ease;
+}
+
+.sampleToggleButton:hover {
+    color: #1d4ed8;
+}
+
+.inputArea {
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.samplesContainer {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 280px;
+    background: white;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    z-index: 1000;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.samplesHeader {
+    padding: 10px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    font-weight: 600;
+    font-size: 12px;
+    color: #333;
+}
+
+.samplesList {
+    padding: 6px;
+}
+
+.sampleButton {
+    display: block;
+    width: 100%;
+    padding: 8px 10px;
+    margin-bottom: 4px;
+    background: white;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    text-align: left;
+    cursor: pointer;
+    font-size: 11px;
+    color: #333;
+    transition: all 0.2s ease;
+}
+
+.sampleButton:hover {
+    background: #f0f7ff;
+    border-color: #2099b3;
+    color: #2099b3;
+}
+
+.sampleButton:last-child {
+    margin-bottom: 0;
+}
+
+/* Job Description Section for Modal */
+.jobDescriptionSection {
+  margin-top: 1rem;
+  padding-top: 1rem;
+  border-top: 2px solid #e2e8f0;
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.jobDescriptionSection h3 {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 0.75rem;
 }

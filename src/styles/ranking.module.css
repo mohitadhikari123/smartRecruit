@@ -1,98 +1,645 @@
-.container {
-    max-width: 800px; 
-    padding: 20px;
-    background: #fff;
-    border-radius: 10px;
-    text-align: left;
-    margin: auto;
-}
-.PageContainer{
-    display: flex;
-    flex-direction: column;
+/* Ranking Page Styles */
+.rankingPage {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 50%, #e0e7ff 100%);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
 }
 
-.title {
-    font-size: 24px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    color: #333;
-    width: 73%;
+/* Navigation */
+.navbar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.navContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-weight: 700;
+  font-size: 1.5rem;
+  color: #1e293b;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.logo:hover {
+  transform: translateY(-1px);
+}
+
+.logoImage {
+  width: 4.5rem;
+  height: 4.5rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+  object-fit: contain;
+  transform: scale(1.5);
+}
+
+.logoText {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.navButtons {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rankingBtn {
+  color: #3b82f6;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.95rem;
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #3b82f6;
+  border-radius: 0.5rem;
+  background: white;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.rankingBtn:hover {
+  background: #3b82f6;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+
+/* Hero Section */
+.hero {
+  padding: 4rem 0 2rem;
+  text-align: center;
+}
+
+.heroContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.heroTitle {
+  font-size: 3.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+}
+
+.gradientText {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6, #ec4899);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.heroSubtitle {
+  font-size: 1.25rem;
+  color: #64748b;
+  line-height: 1.6;
+  margin-bottom: 2.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Search Section */
+.searchSection {
+  padding: 2rem 0;
+}
+
+.searchContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.searchCard {
+  background: white;
+  padding: 2.5rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  position: relative;
+}
+
+.searchTitle {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+  color: #1e293b;
+  text-align: center;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Job Input Container */
+.jobInputContainer {
+  margin-bottom: 1.5rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  overflow: hidden;
+  background: #f8fafc;
+}
+
+.jobInputHeader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f1f5f9;
+  padding: 0.75rem;
+  border-bottom: 1px solid #e2e8f0;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.inputLabel {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.75rem;
+}
+
+.orDivider {
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 0.75rem;
+}
+
+.sampleToggleButton {
+  background: none;
+  border: none;
+  color: #3b82f6;
+  font-weight: 600;
+  font-size: 0.75rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  transition: color 0.2s ease;
+}
+
+.sampleToggleButton:hover {
+  color: #1d4ed8;
+}
+
+.inputArea {
+  position: relative;
+  padding: 1rem;
 }
 
 .textarea {
-    width: 95%;
-    height: 200px;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    resize: vertical;
-    margin-bottom: 15px;
+  width: 100%;
+  height: 200px;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 0.875rem;
+  resize: none;
+  background: white;
+  transition: all 0.2s ease;
+  font-family: inherit;
 }
 
-.submitButton {
-    padding: 12px;
-    background: #2099b3;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out, transform 0.2s;
-    margin : auto;
+.textarea:focus {
+  outline: none;
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 }
 
-.submitButton:hover {
-    background: #176d81;
-    transform: scale(1.05);
+.samplesContainer {
+  position: absolute;
+  top: 10px;
+  right: 15px;
+  width: 300px;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  backdrop-filter: blur(10px);
 }
 
-.table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
+.samplesHeader {
+  padding: 0.75rem 1rem;
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+  border-bottom: 1px solid #e2e8f0;
+  font-weight: 600;
+  font-size: 0.75rem;
+  color: #1e293b;
+  border-radius: 0.75rem 0.75rem 0 0;
 }
 
-.table th, .table td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+.samplesList {
+  padding: 0.5rem;
+  max-height: 140px;
+  overflow-y: auto;
 }
 
-.table th {
-    background-color: #f2f2f2;
-    font-weight: bold;
+.sampleButton {
+  display: block;
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  margin-bottom: 0.25rem;
+  background: white;
+  border: 2px solid #e2e8f0;
+  border-radius: 0.5rem;
+  text-align: left;
+  cursor: pointer;
+  font-size: 0.75rem;
+  font-weight: 500;
+  color: #1e293b;
+  transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
 }
 
-.table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
+.sampleButton:hover {
+  background: linear-gradient(135deg, #f0f7ff, #e0f2fe);
+  border-color: #3b82f6;
+  color: #3b82f6;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
 }
 
-.table tbody tr:hover {
-    background-color: #e0f7fa;
-}
-.header {
-    display: flex;
-    justify-content: right;
-    padding: 10px;
+.searchButton {
+  width: 100%;
+  padding: 1rem 2rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  border-radius: 0.75rem;
+  font-weight: 700;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.3);
+  position: relative;
+  overflow: hidden;
 }
 
-.homeLink {
-    padding: 12px;
-    text-decoration: none;
-    background: #000000;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease-in-out, transform 0.2s;
+.searchButton:hover:not(:disabled) {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 35px rgba(59, 130, 246, 0.4);
 }
-.headerContainer{
-    display: flex;
-    justify-content: right;
-    align-items: center;
-    width: 97%;
+
+.searchButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Results Section */
+.resultsSection {
+  padding: 2rem 0;
+}
+
+.resultsContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.resultsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.resultsTitle {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin: 0;
+}
+
+.resultsCount {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 2rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+}
+
+/* Table Styles */
+.tableContainer {
+  background: white;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  border: 1px solid rgba(226, 232, 240, 0.5);
+  overflow: hidden;
+}
+
+.candidatesTable {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+
+.candidatesTable thead {
+  background: linear-gradient(135deg, #f1f5f9, #e2e8f0);
+}
+
+.candidatesTable th {
+  padding: 1rem;
+  text-align: left;
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.rankCol {
+  width: 60px;
+  text-align: center;
+}
+
+.candidateCol {
+  width: 200px;
+}
+
+.emailCol {
+  width: 250px;
+}
+
+.scoreCol {
+  width: 150px;
+}
+
+.statusCol {
+  width: 120px;
+  text-align: center;
+}
+
+.candidateRow {
+  border-bottom: 1px solid #f1f5f9;
+  transition: all 0.2s ease;
+}
+
+.candidateRow:hover {
+  background: #f8fafc;
+}
+
+.candidateRow:last-child {
+  border-bottom: none;
+}
+
+.candidatesTable td {
+  padding: 1rem;
+  vertical-align: middle;
+}
+
+.rankCell {
+  text-align: center;
+}
+
+.rankNumber {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: 0.875rem;
+}
+
+.candidateName {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 0.875rem;
+}
+
+.emailCell {
+  color: #64748b;
+}
+
+.scoreContainer {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.scoreBar {
+  flex: 1;
+  height: 0.75rem;
+  background: #e2e8f0;
+  border-radius: 0.375rem;
+  overflow: hidden;
+  position: relative;
+}
+
+.scoreFill {
+  height: 100%;
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  border-radius: 0.375rem;
+  transition: width 0.5s ease;
+  min-width: 2px;
+}
+
+.scoreText {
+  font-weight: 700;
+  color: #1e293b;
+  font-size: 0.875rem;
+  min-width: 4rem;
+  text-align: right;
+}
+
+.statusBadge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 1rem;
+  font-weight: 600;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.statusAvailable {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.statusPending {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+.statusLow {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.statusNoMatch {
+  background: #f3f4f6;
+  color: #6b7280;
+}
+
+/* No Results Section */
+.noResultsSection {
+  padding: 4rem 0;
+  text-align: center;
+}
+
+.noResultsContainer {
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.noResultsIcon {
+  font-size: 4rem;
+  margin-bottom: 1.5rem;
+}
+
+.noResultsTitle {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 1rem;
+}
+
+.noResultsText {
+  color: #64748b;
+  margin-bottom: 2rem;
+  line-height: 1.6;
+}
+
+.tryAgainButton {
+  background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+  color: white;
+  border: none;
+  padding: 0.75rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.tryAgainButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 2.5rem;
+  }
+  
+  .heroSubtitle {
+    font-size: 1.1rem;
+  }
+  
+  .navContainer {
+    padding: 1rem;
+  }
+  
+  .navButtons {
+    gap: 0.75rem;
+  }
+  
+  .rankingBtn {
+    padding: 0.625rem 1.25rem;
+    font-size: 0.875rem;
+  }
+  
+  .logoImage {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+  
+  .searchCard {
+    padding: 1.5rem;
+  }
+  
+  .resultsHeader {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+  
+  .candidatesTable {
+    font-size: 0.75rem;
+  }
+  
+  .candidatesTable th,
+  .candidatesTable td {
+    padding: 0.75rem 0.5rem;
+  }
+  
+  .candidateCol {
+    width: 150px;
+  }
+  
+  .emailCol {
+    width: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .heroTitle {
+    font-size: 2rem;
+  }
+  
+  .navContainer {
+    padding: 0.75rem 1rem;
+  }
+  
+  .navButtons {
+    gap: 0.5rem;
+  }
+  
+  .rankingBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.8rem;
+  }
+  
+  .logo {
+    font-size: 1.25rem;
+  }
+  
+  .logoImage {
+    width: 2rem;
+    height: 2rem;
+  }
+  
+  .searchCard {
+    padding: 1rem;
+  }
+  
+  .candidatesTable {
+    font-size: 0.7rem;
+  }
+  
+  .candidatesTable th,
+  .candidatesTable td {
+    padding: 0.5rem 0.25rem;
+  }
+  
 }
