@@ -432,6 +432,7 @@
   .evaluationReport {
     padding: 1.5rem;
     margin: 1rem;
+    width: 87%;
   }
   
   .categoriesGrid {
@@ -455,6 +456,7 @@
   .evaluationReport {
     padding: 1rem;
     margin: 0.5rem;
+    width: 87%;
   }
   
   .title {

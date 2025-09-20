@@ -179,14 +179,14 @@ export default function RankingPage() {
                                 <tbody>
                                     {rankedCandidates.map((candidate, index) => (
                                         <tr key={candidate._id} className={styles.candidateRow}>
-                                            <td className={styles.rankCell}>
+                                            <td className={styles.rankCell} data-label="Rank">
                                                 <div className={styles.rankNumber}>{index + 1}</div>
                                             </td>
-                                            <td className={styles.candidateCell}>
+                                            <td className={styles.candidateCell} data-label="Candidate">
                                                 <div className={styles.candidateName}>{candidate.name}</div>
                                             </td>
-                                            <td className={styles.emailCell}>{candidate.email}</td>
-                                            <td className={styles.scoreCell}>
+                                            <td className={styles.emailCell} data-label="Email">{candidate.email}</td>
+                                            <td className={styles.scoreCell} data-label="Score">
                                                 <div className={styles.scoreContainer}>
                                                     <div className={styles.scoreBar}>
                                                         <div 
@@ -199,7 +199,7 @@ export default function RankingPage() {
                                                     </span>
                                                 </div>
                                             </td>
-                                            <td className={styles.statusCell}>
+                                            <td className={styles.statusCell} data-label="Status">
                                                 <span className={`${styles.statusBadge} ${
                                                     normalizeScore(candidate.similarityScore) > 70 ? styles.statusAvailable : 
                                                     normalizeScore(candidate.similarityScore) > 40 ? styles.statusPending : 
